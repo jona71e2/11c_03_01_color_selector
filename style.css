@@ -2,18 +2,25 @@
   box-sizing: border-box;
 }
 
+p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .color-container {
   display: flex;
-  width: 90vw;
+  flex-wrap: wrap;
+  width: 100vw;
   height: 80vh;
   margin: auto;
   background-color: #ccc;
+  justify-content: center;
 }
 
 .color {
-  height: 50vh;
+  height: 300px;
   /*max-height: 150px;*/
-  width: 20vw;
+  min-width: 220px;
   background-color: #fff;
   margin: auto 1vw;
   border: 2px solid #000;
@@ -23,6 +30,17 @@
   text-align: center;
 }
 
-#color3 {
+#color_display1,
+#color_display2,
+#color_display3,
+#color_display4,
+#color_display5 {
+  height: 200px;
+  width: 200px;
   background-color: #ccc;
+  margin: 10px;
+}
+
+#color3 {
+  background-color: #fff;
 }

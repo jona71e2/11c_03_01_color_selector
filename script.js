@@ -13,7 +13,9 @@ function inputValue() {
   let selectedColor = input.value;
   hexToRGB(selectedColor);
 
-  document.querySelector("#color3").style.backgroundColor = `${selectedColor}`;
+  document.querySelector(
+    "#color_display3"
+  ).style.backgroundColor = `${selectedColor}`;
   document.querySelector(
     "#color3 .hex"
   ).textContent = `HEX: ${selectedColor.toString()}`;
