@@ -215,6 +215,7 @@ function displayColorFromHsl(hslString) {
 }
 
 function makeColorPalette(hsl) {
+  console.log("Running makeColorPalette:");
   const hslColors = [
     { h, s, l },
     { h, s, l },
@@ -245,5 +246,107 @@ function makeColorPalette(hsl) {
     console.log(hslColors, "else");
   }
 
+  //MONOCHROMATIC
+  // hslColors[0].s = s - 20;
+  // hslColors[1].s = s - 10;
+  // hslColors[3].s = s + 10;
+  // hslColors[4].s = s + 20;
+
+  // console.log(hsl);
+
   return hslColors;
+}
+
+function analogous(hsl) {
+  console.log("Running analogous:");
+  const hslColors = [
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+  ];
+}
+
+function monochromatic(hsl) {
+  console.log("Running monochromatic:");
+  // const hslColors = [
+  //   { h, s, l },
+  //   { h, s, l },
+  //   { h, s, l },
+  //   { h, s, l },
+  //   { h, s, l },
+  // ];
+
+  // hslColors[0].s = s - 20;
+  // hslColors[1].s = s - 10;
+  // hslColors[3].s = s + 10;
+  // hslColors[4].s = s + 20;
+
+  // console.log(hsl);
+
+  // if (h >= 50) {
+  //   console.log(h, "h");
+  //   hslColors[0].h = h - 50;
+  //   hslColors[1].h = h - 25;
+  //   hslColors[3].h = h + 25;
+  //   hslColors[4].h = h + 50;
+  //   console.log(hslColors, "if 10");
+  // } else if (h >= 6) {
+  //   hslColors[0].h = h - 6;
+  //   hslColors[1].h = h - 3;
+  //   hslColors[3].h = h + 3;
+  //   hslColors[4].h = h + 6;
+  //   console.log(hslColors, "if 6");
+  // } else {
+  //   hslColors[0].h = h + 5;
+  //   hslColors[1].h = h + 10;
+  //   hslColors[3].h = h + 15;
+  //   hslColors[4].h = h + 20;
+  //   console.log(hslColors, "else");
+  // }
+}
+
+function triad(hsl) {
+  console.log("Running triad:");
+  const hslColors = [
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+  ];
+}
+
+function complementary(hsl) {
+  console.log("Running complementary:");
+  const hslColors = [
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+  ];
+}
+
+function compound(hsl) {
+  console.log("Running compound:");
+  const hslColors = [
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+  ];
+}
+
+function shades(hsl) {
+  console.log("Running shades:");
+  const hslColors = [
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+  ];
 }

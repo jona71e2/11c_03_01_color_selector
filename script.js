@@ -1,12 +1,23 @@
 window.addEventListener("DOMContentLoaded", init);
 
+function init() {
+  console.log("init");
+}
 ("use strict");
 
 const input = document.querySelector("input");
 
-function init() {}
+//document.querySelector("#analogous").addEventListener("change", formValue);
+//document.querySelector("#analogous").addEventListener("input", formValue);
+document.querySelector("#monochromatic").addEventListener("input", formValue);
 
-input.addEventListener("input", inputValue);
+document
+  .querySelector("input[name=scheme]")
+  .addEventListener("change", formValue);
+
+function formValue() {
+  console.log("running FORM INPUT function:", this.value);
+}
 
 function inputValue() {
   console.log("Running inputValue", input.value);

@@ -7,7 +7,32 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+      
     <!-- <input type="color" /> -->
+    <form>
+        <input type="radio" id="analogous" name="scheme" value="analogous" />
+        <label for="analogous">Analogous</label>
+        <input
+          type="radio"
+          id="monochromatic"
+          name="scheme"
+          value="monochromatic"
+        />
+        <label for="monochromatic">Monochromatic</label>
+        <input type="radio" id="triad" name="scheme" value="triad" />
+        <label for="triad">Triad</label>
+        <input
+          type="radio"
+          id="complementary"
+          name="scheme"
+          value="complementary"
+        />
+        <label for="complementary">Complementary</label>
+        <input type="radio" id="compound" name="scheme" value="compound" />
+        <label for="compound">Compound</label>
+        <input type="radio" id="shades" name="scheme" value="shades" />
+        <label for="shades">Shades</label>
+    </form>
     <div class="color-container">
       <div id="color1" class="color">
         <div id="color_display1"></div>
@@ -49,9 +74,9 @@
           <p class="hsl">HSL: 0 0% 80%</p>
         </div>
       </div>
-      <input type="color" />
+      <input type="color" id="colorInput" />
 
-    <script src="colorpalette.js"></script>
+    <script src="palette.js"></script>
     <!-- <script src="script.js"></script> -->
   </body>
 </html>
