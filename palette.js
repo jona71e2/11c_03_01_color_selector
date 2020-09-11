@@ -6,45 +6,41 @@ window.addEventListener("DOMContentLoaded", init);
 const colorValue = document.querySelector("#colorInput");
 const schemeValue = document.querySelectorAll("form>input");
 
+//Variable for the chosen color harmony (analogous as default)
+let harmony = "analogous";
+
+function changeHarmony() {
+  harmony = this.value;
+}
+
 function init() {
   console.log("Program running");
 }
 
-//Eventlisteners on user-inputs
+//Eventlisteners
 colorValue.addEventListener("input", inputValue);
 schemeValue.forEach((input) => {
-  //input.addEventListener("change", makeColorPalette);
-  //   input.addEventListener("change", selectedColorData);
+  input.addEventListener("change", changeHarmony);
 });
 
 function inputValue() {
   //Function storing selected color-value (hex) from user and parsing it to function selectedColorData(hex)
-  console.log("Running inputValue", colorInput.value);
   const hex = colorInput.value;
   selectedColorData(hex);
 }
 
 function selectedColorData(hex) {
-  console.log("Running selectedColorData:", hex);
-  //   displayColor(hex);
-  const schemeTest = this.value;
-  console.log("::: SCHEMEtest", schemeTest);
-
   //Parsing the hex-code and returning the rgb-values
   const rgb = hexToRGB(hex);
-  console.log("Return value from hexToRGB(hex):", rgb);
 
   //Parsing the rgb-values and returning the HSL-values.
   const hsl = rgbToHsl(rgb);
-  console.log("RETURN object hsl", hsl);
 
   makeColorPalette(hsl);
 }
 
 function hexToRGB(hex) {
-  //   console.log("Running hexToRGB");
-  //   console.log(hex);
-
+  //Converting the hex code to rgb and returning it
   const r = parseInt(hex.substring(1, 3), 16);
   const g = parseInt(hex.substring(3, 5), 16);
   const b = parseInt(hex.substring(5, 7), 16);
@@ -98,27 +94,26 @@ function rgbToHsl(rgb) {
 }
 
 function showHexValues(hexArray) {
-  //console.log("Running showHEXValue");
+  //Displaying the hex-values (uppercase)
   document.querySelector(
     "#color1 .hex"
-  ).textContent = `HEX: #${hexArray[0].h.toUpperCase()}${hexArray[0].e.toUpperCase()}${hexArray[0].x.toUpperCase()}`;
+  ).textContent = `HEX: #${hexArray[0].r.toUpperCase()}${hexArray[0].g.toUpperCase()}${hexArray[0].b.toUpperCase()}`;
   document.querySelector(
     "#color2 .hex"
-  ).textContent = `HEX: #${hexArray[1].h.toUpperCase()}${hexArray[1].e.toUpperCase()}${hexArray[1].x.toUpperCase()}`;
+  ).textContent = `HEX: #${hexArray[1].r.toUpperCase()}${hexArray[1].g.toUpperCase()}${hexArray[1].b.toUpperCase()}`;
   document.querySelector(
     "#color3 .hex"
-  ).textContent = `HEX: #${hexArray[2].h.toUpperCase()}${hexArray[2].e.toUpperCase()}${hexArray[2].x.toUpperCase()}`;
+  ).textContent = `HEX: #${hexArray[2].r.toUpperCase()}${hexArray[2].g.toUpperCase()}${hexArray[2].b.toUpperCase()}`;
   document.querySelector(
     "#color4 .hex"
-  ).textContent = `HEX: #${hexArray[3].h.toUpperCase()}${hexArray[3].e.toUpperCase()}${hexArray[3].x.toUpperCase()}`;
+  ).textContent = `HEX: #${hexArray[3].r.toUpperCase()}${hexArray[3].g.toUpperCase()}${hexArray[3].b.toUpperCase()}`;
   document.querySelector(
     "#color5 .hex"
-  ).textContent = `HEX: #${hexArray[4].h.toUpperCase()}${hexArray[4].e.toUpperCase()}${hexArray[4].x.toUpperCase()}`;
+  ).textContent = `HEX: #${hexArray[4].r.toUpperCase()}${hexArray[4].g.toUpperCase()}${hexArray[4].b.toUpperCase()}`;
 }
 
 function showRgbValues(rgbArray) {
-  //console.log("Running showRGBValue");
-
+  //Displaying rgb values
   document.querySelector(
     "#color1 .rgb"
   ).textContent = `RGB: ${rgbArray[0].r}, ${rgbArray[0].g}, ${rgbArray[0].b}`;
@@ -137,70 +132,87 @@ function showRgbValues(rgbArray) {
 }
 
 function showHslValues(hslArray) {
-  console.log("Running showHSLValue", hslArray);
+  //Displaying the HSL Values from the hslArray.
+  //Don't know why, but I had to use Math.round and multiply the s and l values by 100/
+  //even though it should happen in rgbToHsl?
 
-  document.querySelector("#color1 .hsl").textContent = `HSL: ${hslArray[0].h} ${
-    hslArray[0].s * 100
-  }% ${hslArray[0].l * 100}%`;
-  document.querySelector("#color2 .hsl").textContent = `HSL: ${hslArray[1].h} ${
-    hslArray[1].s * 100
-  }% ${hslArray[1].l * 100}%`;
-  document.querySelector("#color3 .hsl").textContent = `HSL: ${hslArray[2].h} ${
-    hslArray[2].s * 100
-  }% ${hslArray[2].l * 100}%`;
-  document.querySelector("#color4 .hsl").textContent = `HSL: ${hslArray[3].h} ${
-    hslArray[3].s * 100
-  }% ${hslArray[3].l * 100}%`;
-  document.querySelector("#color5 .hsl").textContent = `HSL: ${hslArray[4].h} ${
-    hslArray[4].s * 100
-  }% ${hslArray[4].l * 100}%`;
+  document.querySelector("#color1 .hsl").textContent = `HSL: ${
+    hslArray[0].h
+  } ${Math.round(hslArray[0].s * 100)}% ${Math.round(hslArray[0].l * 100)}%`;
+  document.querySelector("#color2 .hsl").textContent = `HSL: ${
+    hslArray[1].h
+  } ${Math.round(hslArray[1].s * 100)}% ${Math.round(hslArray[1].l * 100)}%`;
+  document.querySelector("#color3 .hsl").textContent = `HSL: ${
+    hslArray[2].h
+  } ${Math.round(hslArray[2].s * 100)}% ${Math.round(hslArray[2].l * 100)}%`;
+  document.querySelector("#color4 .hsl").textContent = `HSL: ${
+    hslArray[3].h
+  } ${Math.round(hslArray[3].s * 100)}% ${Math.round(hslArray[3].l * 100)}%`;
+  document.querySelector("#color5 .hsl").textContent = `HSL: ${
+    hslArray[4].h
+  } ${Math.round(hslArray[4].s * 100)}% ${Math.round(hslArray[4].l * 100)}%`;
 }
 
 function displayColors(hexArray) {
-  console.log("RUNNING: displayColors", hexArray);
+  //Styling the color divs using the hex-array
   document.querySelector(
     "#color_display1"
-  ).style.backgroundColor = `#${hexArray[0].h}${hexArray[0].e}${hexArray[0].x}`;
+  ).style.backgroundColor = `#${hexArray[0].r}${hexArray[0].g}${hexArray[0].b}`;
   document.querySelector(
     "#color_display2"
-  ).style.backgroundColor = `#${hexArray[1].h}${hexArray[1].e}${hexArray[1].x}`;
+  ).style.backgroundColor = `#${hexArray[1].r}${hexArray[1].g}${hexArray[1].b}`;
   document.querySelector(
     "#color_display3"
-  ).style.backgroundColor = `#${hexArray[2].h}${hexArray[2].e}${hexArray[2].x}`;
+  ).style.backgroundColor = `#${hexArray[2].r}${hexArray[2].g}${hexArray[2].b}`;
   document.querySelector(
     "#color_display4"
-  ).style.backgroundColor = `#${hexArray[3].h}${hexArray[3].e}${hexArray[3].x}`;
+  ).style.backgroundColor = `#${hexArray[3].r}${hexArray[3].g}${hexArray[3].b}`;
   document.querySelector(
     "#color_display5"
-  ).style.backgroundColor = `#${hexArray[4].h}${hexArray[4].e}${hexArray[4].x}`;
+  ).style.backgroundColor = `#${hexArray[4].r}${hexArray[4].g}${hexArray[4].b}`;
 }
 
 function makeColorPalette(hsl) {
-  console.log("Running makeColorPalette:");
   //Store the selected color value as hsl
   const hslValue = hsl;
 
   //Making the color-scheme from the input color (returning an Array of the full color-scheme (HSL))
-  //   const hslArray = analogous(hslValue);
+  let hslArray;
+  //Checking which harmony to make
+  if (harmony == "analogous") {
+    hslArray = analogous(hslValue);
+  } else if (harmony == "monochromatic") {
+    hslArray = monochromatic(hslValue);
+  } else if (harmony == "triad") {
+    hslArray = triad(hslValue);
+  } else if (harmony == "complementary") {
+    hslArray = complementary(hslValue);
+  } else if (harmony == "compound") {
+    hslArray = compound(hslValue);
+  } else if (harmony == "shades") {
+    hslArray = shades(hslValue);
+  }
+  //// -- BEFORE IF statements ////
   //const hslArray = monochromatic(hslValue);
-  const hslArray = triad(hslValue);
+  //const hslArray = triad(hslValue);
+  //const hslArray = complementary(hslValue);
+  //const hslArray = compound(hslValue);
+  //const hslArray = shades(hslValue);
 
-  //Converting the HSL color scheme into an array og the color scheme in RGB values
+  //Converting the HSL color scheme into an array of the color scheme in RGB values
   const rgbArray = [];
   hslArray.forEach((obj) => {
     const rgbConvert = hslToRgb(obj);
     rgbArray.push(rgbConvert);
   });
-  console.log("RGB ARRAY", rgbArray);
 
   const hexArray = [];
   rgbArray.forEach((obj) => {
     const hexConvert = rgbToHex(obj);
     hexArray.push(hexConvert);
   });
-  console.log("HEX ARRAY", hexArray);
 
-  //Calling the display functions parsing the needed data
+  //Calling the display functions and parsing the needed data
   displayColors(hexArray);
 
   showHexValues(hexArray);
@@ -211,10 +223,11 @@ function makeColorPalette(hsl) {
 }
 
 function analogous(hsl) {
-  console.log("Running analogous:", hsl);
+  //Creating variables for the values h,s,l from the object
   let h = hsl.h;
   let s = hsl.s;
   let l = hsl.l;
+  //Creating an Array with 5 objects. --> Array index[0,1,3,4] will then be set accordring to the harmoni
   const hslColors = [
     { h, s, l },
     { h, s, l },
@@ -222,35 +235,34 @@ function analogous(hsl) {
     { h, s, l },
     { h, s, l },
   ];
-  console.log("hslColorsARRAY", hslColors);
 
-  if (hsl.h >= 50) {
-    console.log(h, "h");
-    hslColors[0].h = h - 50;
-    hslColors[1].h = h - 25;
-    hslColors[3].h = h + 25;
-    hslColors[4].h = h + 50;
-    console.log(hslColors, "if 10");
-  } else if (h >= 6) {
-    hslColors[0].h = h - 6;
-    hslColors[1].h = h - 3;
-    hslColors[3].h = h + 3;
-    hslColors[4].h = h + 6;
-    console.log(hslColors, "if 6");
-  } else {
-    hslColors[0].h = h + 5;
-    hslColors[1].h = h + 10;
-    hslColors[3].h = h + 15;
-    hslColors[4].h = h + 20;
-    console.log(hslColors, "else");
+  //Const that defines the number of degrees each color is shifted.
+  const numberOfDegreesShiftet = 25;
+
+  //Changes to the harmoni
+  hslColors[0].h = h - 2 * numberOfDegreesShiftet;
+  hslColors[1].h = h - numberOfDegreesShiftet;
+  hslColors[3].h = h + numberOfDegreesShiftet;
+  hslColors[4].h = h + 2 * numberOfDegreesShiftet;
+
+  //If statements that makes sure the value of Hue does not exceed 360 or isn't a negative number.
+  if (hslColors[0].h < 0) {
+    hslColors[0].h = h - 2 * numberOfDegreesShiftet + 360;
   }
-  console.log("HVAddd ER der sket?", hslColors);
-  //return { h, s, l };
+  if (hslColors[1].h < 0) {
+    hslColors[1].h = h - numberOfDegreesShiftet + 360;
+  }
+  if (hslColors[3].h > 360) {
+    hslColors[3].h = h + numberOfDegreesShiftet - 360;
+  }
+  if (hslColors[4].h > 360) {
+    hslColors[4].h = h + 2 * numberOfDegreesShiftet - 360;
+  }
+
   return hslColors;
 }
 
 function monochromatic(hsl) {
-  console.log("Running monochromatic:");
   let h = hsl.h;
   let s = hsl.s;
   let l = hsl.l;
@@ -263,16 +275,31 @@ function monochromatic(hsl) {
     { h, s, l },
   ];
 
-  hslColors[0].l = l - 20;
-  hslColors[1].l = l - 10;
-  hslColors[3].l = l + 10;
-  hslColors[4].l = l + 20;
+  //Making changes to the Lightness
+  const percentageChange = 10;
+
+  hslColors[0].l = l - 2 * percentageChange;
+  hslColors[1].l = l - percentageChange;
+  hslColors[3].l = l + percentageChange;
+  hslColors[4].l = l + 2 * percentageChange;
+
+  if (hslColors[0].l < 0) {
+    hslColors[0].l = l - 2 * percentageChange + 100;
+  }
+  if (hslColors[1].l < 0) {
+    hslColors[1].l = l - percentageChange + 100;
+  }
+  if (hslColors[3].l > 100) {
+    hslColors[3].l = l + percentageChange + 100;
+  }
+  if (hslColors[4].l > 100) {
+    hslColors[4].l = l + 2 * percentageChange + 100;
+  }
 
   return hslColors;
 }
 
 function triad(hsl) {
-  console.log("Running triad:");
   let h = hsl.h;
   let s = hsl.s;
   let l = hsl.l;
@@ -284,18 +311,38 @@ function triad(hsl) {
     { h, s, l },
   ];
 
-  hslColors[0].h = h - 120;
-  hslColors[0].l = l - 10;
-  hslColors[1].h = h - 120;
-  hslColors[3].h = h + 120;
-  hslColors[4].h = h + 120;
-  hslColors[4].l = l + 10;
+  const hueShiftFromBase = 120;
+  const lightnessChange = 20;
 
+  hslColors[0].h = h - hueShiftFromBase;
+  hslColors[0].l = l - lightnessChange;
+  hslColors[1].h = h - hueShiftFromBase;
+  hslColors[3].h = h + hueShiftFromBase;
+  hslColors[4].h = h + hueShiftFromBase;
+  hslColors[4].l = l + lightnessChange;
+
+  if (hslColors[0].h < 0) {
+    hslColors[0].h = h - hueShiftFromBase + 360;
+  }
+  if (hslColors[0].l < 0) {
+    hslColors[0].l = l - lightnessChange + 100;
+  }
+  if (hslColors[1].h < 0) {
+    hslColors[1].h = h - hueShiftFromBase + 360;
+  }
+  if (hslColors[3].h > 360) {
+    hslColors[3].h = h + hueShiftFromBase - 360;
+  }
+  if (hslColors[4].h > 360) {
+    hslColors[4].h = h + hueShiftFromBase - 360;
+  }
+  if (hslColors[4].l > 100) {
+    hslColors[4].l = l + lightnessChange - 100;
+  }
   return hslColors;
 }
 
 function complementary(hsl) {
-  console.log("Running complementary:");
   let h = hsl.h;
   let s = hsl.s;
   let l = hsl.l;
@@ -307,18 +354,46 @@ function complementary(hsl) {
     { h, s, l },
   ];
 
-  hslColors[0].h = h - 120;
-  hslColors[0].l = l - 10;
-  hslColors[1].h = h - 120;
-  hslColors[3].h = h + 120;
-  hslColors[4].h = h + 120;
-  hslColors[4].l = l + 10;
+  const complementaryShift = 180;
+  const lightnessChange = 20;
+
+  hslColors[0].h = h + complementaryShift;
+  hslColors[0].l = l - lightnessChange;
+  hslColors[1].h = h + complementaryShift;
+  hslColors[3].h = h + complementaryShift;
+  hslColors[3].l = l + 2 * lightnessChange;
+  hslColors[4].h = h + complementaryShift;
+  hslColors[4].l = l + 3 * lightnessChange;
+
+  if (hslColors[0].h > 360) {
+    hslColors[0].h = h + complementaryShift + 360;
+  }
+  if (hslColors[1].h > 360) {
+    hslColors[1].h = h + complementaryShift + 360;
+  }
+  if (hslColors[3].h > 360) {
+    hslColors[3].h = h + complementaryShift + 360;
+  }
+  if (hslColors[4].h > 360) {
+    hslColors[4].h = h + complementaryShift + 360;
+  }
+  if (hslColors[0].l < 0) {
+    hslColors[0].l = l - lightnessChange + 100;
+  }
+  if (hslColors[3].l > 100) {
+    hslColors[3].l = l + 2 * lightnessChange - 100;
+  }
+  if (hslColors[4].l > 100) {
+    hslColors[4].l = l + 3 * lightnessChange - 100;
+  }
 
   return hslColors;
 }
 
 function compound(hsl) {
-  console.log("Running compound:");
+  let h = hsl.h;
+  let s = hsl.s;
+  let l = hsl.l;
   const hslColors = [
     { h, s, l },
     { h, s, l },
@@ -326,10 +401,35 @@ function compound(hsl) {
     { h, s, l },
     { h, s, l },
   ];
+
+  const complementaryShift = 180;
+  const analogousShift = 20;
+
+  hslColors[0].h = h + complementaryShift - analogousShift;
+  hslColors[1].h = h + complementaryShift;
+  hslColors[3].h = h + complementaryShift + analogousShift;
+  hslColors[4].h = h + complementaryShift + 2 * analogousShift;
+
+  if (hslColors[0].h < 0) {
+    hslColors[0].h = h + complementaryShift - analogousShift + 360;
+  }
+  if (hslColors[1].h > 360) {
+    hslColors[1].h = h + complementaryShift - 360;
+  }
+  if (hslColors[3].h < 0) {
+    hslColors[3].h = h + complementaryShift + analogousShift - 360;
+  }
+  if (hslColors[4].h < 0) {
+    hslColors[4].h = h + complementaryShift + analogousShift - 360;
+  }
+
+  return hslColors;
 }
 
 function shades(hsl) {
-  console.log("Running shades:");
+  let h = hsl.h;
+  let s = hsl.s;
+  let l = hsl.l;
   const hslColors = [
     { h, s, l },
     { h, s, l },
@@ -337,11 +437,30 @@ function shades(hsl) {
     { h, s, l },
     { h, s, l },
   ];
+
+  const lightnessChange = 15;
+  hslColors[0].l = l + lightnessChange;
+  hslColors[1].l = l + 2 * lightnessChange;
+  hslColors[3].l = l + 3 * lightnessChange;
+  hslColors[4].l = l + 4 * lightnessChange;
+
+  if (hslColors[0].l > 100) {
+    hslColors[0].l = l + lightnessChange - 100;
+  }
+  if (hslColors[1].l > 100) {
+    hslColors[1].l = l + 2 * lightnessChange - 100;
+  }
+  if (hslColors[3].l > 100) {
+    hslColors[3].l = l + 3 * lightnessChange - 100;
+  }
+  if (hslColors[4].l > 100) {
+    hslColors[4].l = l + 4 * lightnessChange - 100;
+  }
+
+  return hslColors;
 }
 
 function hslToRgb(obj) {
-  console.log("HVILKET OBJECT MODTAGES HER?", obj);
-  //   schemeCreaterHsl.forEach(obj =>{  } )
   obj.h = obj.h;
   obj.s = obj.s / 100;
   obj.l = obj.l / 100;
@@ -385,24 +504,20 @@ function hslToRgb(obj) {
 }
 
 function rgbToHex(rgb) {
-  let h = rgb.r.toString(16);
-  console.log("r:", h);
-  let e = rgb.g.toString(16);
-  console.log("g:", e);
-  let x = rgb.b.toString(16);
-  console.log("b:", x);
-  if (h.length < 2) {
-    h = rgb.r.toString(16).padStart(2, "0");
-    console.log("IF r:", h);
+  //Converting the rgb object to a hex-string
+  let r = rgb.r.toString(16);
+  let g = rgb.g.toString(16);
+  let b = rgb.b.toString(16);
+
+  if (r.length < 2) {
+    r = rgb.r.toString(16).padStart(2, "0");
   }
-  if (e.length < 2) {
-    e = rgb.g.toString(16).padStart(2, "0");
-    console.log("IF g:", e);
+  if (g.length < 2) {
+    g = rgb.g.toString(16).padStart(2, "0");
   }
-  if (x.length < 2) {
-    x = rgb.b.toString(16).padStart(2, "0");
-    console.log("IF b:", x);
+  if (b.length < 2) {
+    b = rgb.b.toString(16).padStart(2, "0");
   }
 
-  return { h, e, x };
+  return { r, g, b };
 }
