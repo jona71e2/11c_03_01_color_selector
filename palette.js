@@ -30,42 +30,15 @@ function selectedColorData(hex) {
   const schemeTest = this.value;
   console.log("::: SCHEMEtest", schemeTest);
 
-  //Making the hex-value uppercase
-  //   const hexString = hex.toUpperCase();
-  //   console.log("HEX STRING:::::", hexString);
-
   //Parsing the hex-code and returning the rgb-values
   const rgb = hexToRGB(hex);
   console.log("Return value from hexToRGB(hex):", rgb);
 
-  //   const rgbString = makeRGBString(rgb);
-  //console.log("Return value from makeRGBString(rgb):", rgbString);
-
-  //   const cssStr = rgbToCss(rgb);
-  //console.log(rgb);
-  //console.log("Return value from rgbToCss(rgb):", cssStr);
-
   //Parsing the rgb-values and returning the HSL-values.
   const hsl = rgbToHsl(rgb);
-  //console.log("Return value from rgbToHsl(rgb):", hsl);
-  console.log("RETURN objectm hsl", hsl);
+  console.log("RETURN object hsl", hsl);
 
   makeColorPalette(hsl);
-
-  //   const hslArray = analogous(hsl);
-  //   console.log(hslArray);
-
-  //   const hslString = makeHSLString(hsl);
-  //   console.log("RETURN VALUE:::::", hslString);
-  //   const hslString2 = makeHSLString(hsl);
-  //   console.log(":::::::::: RETURN RETURN RETURN", hslString2);
-  //console.log("Return value from makeHSLString(hsl):", hslString);
-
-  //   showHEXValue(hexString);
-  //   showRGBValue(rgbString);
-  //   showHSLValue(hslString2);
-
-  //   displayColorFromHsl(hslString2);
 }
 
 function hexToRGB(hex) {
@@ -76,22 +49,7 @@ function hexToRGB(hex) {
   const g = parseInt(hex.substring(3, 5), 16);
   const b = parseInt(hex.substring(5, 7), 16);
 
-  //   const rgbColors = [
-  //     { r, g, b },
-  //     { r, g, b },
-  //     { r, g, b },
-  //     { r, g, b },
-  //     { r, g, b },
-  //   ];
-  //   console.log(rgbColors);
-
   return { r, g, b };
-}
-
-function makeRGBString(rgb) {
-  //console.log("makeRGBString", rgb);
-  rgbString = `RGB: ${rgb.r}, ${rgb.g}, ${rgb.b}`;
-  return rgbString;
 }
 
 function rgbToHsl(rgb) {
@@ -137,13 +95,6 @@ function rgbToHsl(rgb) {
   l = Number(l.toFixed(0));
 
   return { h, s, l };
-}
-
-function rgbToCss(rgb) {
-  //console.log(rgb);
-  //console.log("Running rgbToCss");
-  const str = `rgb(${rgb.r},${rgb.g},${rgb.b})`;
-  return str;
 }
 
 function showHexValues(hexArray) {
@@ -230,7 +181,9 @@ function makeColorPalette(hsl) {
   const hslValue = hsl;
 
   //Making the color-scheme from the input color (returning an Array of the full color-scheme (HSL))
-  const hslArray = analogous(hslValue);
+  //   const hslArray = analogous(hslValue);
+  //const hslArray = monochromatic(hslValue);
+  const hslArray = triad(hslValue);
 
   //Converting the HSL color scheme into an array og the color scheme in RGB values
   const rgbArray = [];
@@ -247,6 +200,7 @@ function makeColorPalette(hsl) {
   });
   console.log("HEX ARRAY", hexArray);
 
+  //Calling the display functions parsing the needed data
   displayColors(hexArray);
 
   showHexValues(hexArray);
@@ -297,45 +251,31 @@ function analogous(hsl) {
 
 function monochromatic(hsl) {
   console.log("Running monochromatic:");
-  // const hslColors = [
-  //   { h, s, l },
-  //   { h, s, l },
-  //   { h, s, l },
-  //   { h, s, l },
-  //   { h, s, l },
-  // ];
+  let h = hsl.h;
+  let s = hsl.s;
+  let l = hsl.l;
 
-  // hslColors[0].s = s - 20;
-  // hslColors[1].s = s - 10;
-  // hslColors[3].s = s + 10;
-  // hslColors[4].s = s + 20;
+  const hslColors = [
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+    { h, s, l },
+  ];
 
-  // console.log(hsl);
+  hslColors[0].l = l - 20;
+  hslColors[1].l = l - 10;
+  hslColors[3].l = l + 10;
+  hslColors[4].l = l + 20;
 
-  // if (h >= 50) {
-  //   console.log(h, "h");
-  //   hslColors[0].h = h - 50;
-  //   hslColors[1].h = h - 25;
-  //   hslColors[3].h = h + 25;
-  //   hslColors[4].h = h + 50;
-  //   console.log(hslColors, "if 10");
-  // } else if (h >= 6) {
-  //   hslColors[0].h = h - 6;
-  //   hslColors[1].h = h - 3;
-  //   hslColors[3].h = h + 3;
-  //   hslColors[4].h = h + 6;
-  //   console.log(hslColors, "if 6");
-  // } else {
-  //   hslColors[0].h = h + 5;
-  //   hslColors[1].h = h + 10;
-  //   hslColors[3].h = h + 15;
-  //   hslColors[4].h = h + 20;
-  //   console.log(hslColors, "else");
-  // }
+  return hslColors;
 }
 
 function triad(hsl) {
   console.log("Running triad:");
+  let h = hsl.h;
+  let s = hsl.s;
+  let l = hsl.l;
   const hslColors = [
     { h, s, l },
     { h, s, l },
@@ -343,10 +283,22 @@ function triad(hsl) {
     { h, s, l },
     { h, s, l },
   ];
+
+  hslColors[0].h = h - 120;
+  hslColors[0].l = l - 10;
+  hslColors[1].h = h - 120;
+  hslColors[3].h = h + 120;
+  hslColors[4].h = h + 120;
+  hslColors[4].l = l + 10;
+
+  return hslColors;
 }
 
 function complementary(hsl) {
   console.log("Running complementary:");
+  let h = hsl.h;
+  let s = hsl.s;
+  let l = hsl.l;
   const hslColors = [
     { h, s, l },
     { h, s, l },
@@ -354,6 +306,15 @@ function complementary(hsl) {
     { h, s, l },
     { h, s, l },
   ];
+
+  hslColors[0].h = h - 120;
+  hslColors[0].l = l - 10;
+  hslColors[1].h = h - 120;
+  hslColors[3].h = h + 120;
+  hslColors[4].h = h + 120;
+  hslColors[4].l = l + 10;
+
+  return hslColors;
 }
 
 function compound(hsl) {
